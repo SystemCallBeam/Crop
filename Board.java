@@ -10,6 +10,7 @@ public class Board {
         System.out.println("Set Board");
         board = new Unit[size][size];
 
+        // setting board
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 board[i][j] = cell;
@@ -30,18 +31,37 @@ public class Board {
         int cnt = 0;
         board[y][x].move(dir);
 
-        while (board[y][x].team != Team.TEAM00 && (x + dir.x > -1) && (y + dir.y > -1) && (x + dir.x < 8) && (y + dir.y < 8)) {
+        while (board[y][x].team != Team.TEAM00 && (x + dir.x > -1) && (y + dir.y > -1) && (x + dir.x < 8)
+                && (y + dir.y < 8)) {
             cnt++;
             x += dir.x;
             y += dir.y;
 
-            if (board[y][x].point == 0) {
+            if (board[y][x].team == Team.TEAM00) {
                 for (int i = 0; i < cnt; i++) {
                     board[y][x] = board[y - dir.y][x - dir.x];
                     x -= dir.x;
                     y -= dir.y;
                 }
                 board[y][x] = cell;
+
+                break;
+            }
+        }
+    }
+
+    public void skipUnitAt(int x, int y, Direction dir) {
+        int cnt = 0;
+
+        while (board[y][x].team != Team.TEAM00 && (x + dir.x > -1) && (y + dir.y > -1) && (x + dir.x < 8)
+                && (y + dir.y < 8)) {
+            cnt++;
+            x += dir.x;
+            y += dir.y;
+
+            if (board[y][x].team == Team.TEAM00 && cnt > 1) {
+                board[y][x] = board[y - cnt * dir.y][x - cnt * dir.x];
+                board[y - cnt * dir.y][x - cnt * dir.x] = cell;
 
                 break;
             }

@@ -30,6 +30,8 @@ public class MainBoard {
             } else if (action.charAt(2) == 'a') {
 
                 board.getUnit(x, y).useAbility();
+            } else if (action.charAt(2) == 's') {
+                board.skipUnitAt(x, y, Direction.toDirection((action.charAt(3) - '0')));
             }
 
             System.out.println(board.toString());
