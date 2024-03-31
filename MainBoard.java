@@ -5,7 +5,7 @@ public class MainBoard {
 
     public static void main(String[] args) {
         Board board = new Board(MAX_BOARD_SIZE);
-        String action = "";
+        String action[];
         Scanner sc = new Scanner(System.in);
 
         Team teamA = Team.TEAM01;
@@ -19,25 +19,25 @@ public class MainBoard {
 
         System.out.println("Entering game");
         System.out.print(">");
-        action = sc.nextLine();
+        action = sc.nextLine().split(" ");
 
-        while (action.charAt(0) != '!') {
-            int x = action.charAt(0) - '0';
-            int y = action.charAt(1) - '0';
+        while (action[0] != "!") {
+            int x = action[0].charAt(0) - '0';
+            int y = action[0].charAt(1) - '0';
 
-            if (action.charAt(2) == 'm') {
-                board.moveUnitAt(x, y, Direction.toDirection(action.charAt(3) - '0'));
-            } else if (action.charAt(2) == 'a') {
+            if (action[1] == "m") {
+                board.moveUnitAt(x, y, Direction.toDirection(action[2]));
+            } else if (action[1] == "a") {
 
                 board.getUnit(x, y).useAbility();
-            } else if (action.charAt(2) == 's') {
-                board.skipUnitAt(x, y, Direction.toDirection((action.charAt(3) - '0')));
+            } else if (action[1] == "s") {
+                board.skipUnitAt(x, y, Direction.toDirection((action[2])));
             }
 
             System.out.println(board.toString());
 
             System.out.print(">");
-            action = sc.nextLine();
+            action = sc.nextLine().split(" ");
         }
         System.out.println("Exit Game");
 

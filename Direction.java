@@ -27,9 +27,9 @@ public enum Direction {
         this.id = id;
     }
 
-    public static Direction toDirection(int d) {
+    public static Direction toDirection(String d) {
         for (Direction direction : Direction.values()) {
-            if (direction.id == d) {
+            if (direction.id == Integer.parseInt(d)) {
                 return direction;
             }
         }
